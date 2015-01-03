@@ -1,13 +1,15 @@
-<html>
-    <body>
-        <h1>Shots</h1>
-        <ul>
-        {% for year in shots_by_year %}
-            {{ year.date }}
-            {% for shot in year.shots %}
-                <li><a href="{{ url_for('shots.detail', shot_id=shot.id) }}">{{ shot.title }}<img src="{{ shot.images.normal }}" /></a></li>
-            {% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Shots</h1>
+    <ul>
+    {% for year in shots_by_year %}
+        {{ year.date }}
+        {% for shot in year.shots %}
+            <li><a href="{{ url_for('shots.detail', shot_id=shot.id) }}">{{ shot.title }}<img src="{{ shot.images.normal }}" /></a></li>
         {% endfor %}
-        </ul>
-    </body>
-</html>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
