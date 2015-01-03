@@ -1,14 +1,14 @@
 import os
 import logging
 from flask import Flask
-from dribbble.shots.views import mod as shots_blueprint
+from app.shots.views import mod as shots_blueprint
 
 app = None
 
 
 def create_app(*args, **kwargs):
     app = Flask(__name__)
-    app.config.from_object('dribbble.conf.local')
+    app.config.from_object('app.conf.local')
     set_logger(app)
     register_blueprints(app)
     return app
@@ -17,7 +17,7 @@ def create_app(*args, **kwargs):
 def set_logger(app):
     app.logger.setLevel(logging.DEBUG)
     logger_handler = logging.FileHandler(
-        os.path.join(app.config['LOG_LOCATION'], 'dribbble.log'))
+        os.path.join(app.config['LOG_LOCATION'], 'app.log'))
     formatter = logging.Formatter(
         '%(asctime)s  %(levelname)s - %(message)s'
         '[in %(pathname)s:%(lineno)d]')

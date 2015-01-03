@@ -3,6 +3,13 @@ from flask import current_app as app
 from dateutil.relativedelta import relativedelta
 
 
+def get_shots():
+    shots = []
+    for url in urls:
+        shots.append(requests.get(url).json())
+    return shots
+
+
 def get_url(path, params=[]):
     access_token = app.config.get('CLIENT_ACCESS_TOKEN')
     base_uri = app.config.get('BASE_URI')
@@ -13,12 +20,11 @@ def get_url(path, params=[]):
 
 def get_shot_urls():
     urls = []
-    dates = get_all_dates()
     base_uri = app.config.get('BASE_URI')
-    for date in dates:
+    for current_date in get_all_dates():
         params = [
             'per_page=15',
-            'date=%s' % date.strftime('%Y-%m-%d'),
+            'date=%s' % current_date.strftime('%Y-%m-%d'),
             'access_token=%s' % app.config.get('CLIENT_ACCESS_TOKEN')
         ]
         urls.append(
@@ -28,6 +34,10 @@ def get_shot_urls():
 
 
 def get_all_dates():
-    start_date = datetime.strptime('2009-07-29')
-    year = date.today().year
-    return datetime.now() - relativedelta(years=number_of_years)
+    start_date = datetime.strptime('2009-07-29', '%Y-%m-%d')
+    current_date = date.today()
+    dates = []
+    while current_date > start_date:
+        dates.append(current_date)
+        current_date = current_date - relativedelta(years=1)
+    return dates
