@@ -7,8 +7,12 @@ from dateutil.relativedelta import relativedelta
 
 def get_shots_by_year():
     shots = []
-    for url in get_shot_urls():
-        shots.append(requests.get(url).json())
+    urls = get_shot_urls()
+    for url in urls:
+        shots.append({
+            'date': url.get('date'),
+            'shots': requests.get(url.get('url')).json()
+        })
     return shots
 
 
@@ -29,9 +33,12 @@ def get_shot_urls():
             'date=%s' % current_date.strftime('%Y-%m-%d'),
             'access_token=%s' % app.config.get('CLIENT_ACCESS_TOKEN')
         ]
-        urls.append(
-            '{base_uri}/shots?{params}'.format(
-                base_uri=base_uri, params='&'.join(params)))
+        url = '{base_uri}/shots?{params}'.format(
+            base_uri=base_uri, params='&'.join(params))
+        urls.append({
+            'date': current_date,
+            'url': url
+        })
     return urls
 
 
