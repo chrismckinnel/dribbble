@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask
 from app.shots.views import mod as shots_blueprint
+from app.core.views import mod as core_blueprint
 
 app = None
 
@@ -28,3 +29,4 @@ def set_logger(app):
 def register_blueprints(app):
     """Register the our blueprints"""
     app.register_blueprint(shots_blueprint)
+    app.register_blueprint(core_blueprint)

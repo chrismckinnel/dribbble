@@ -12,7 +12,7 @@ def list():
     return render_template('shots/list.html', shots_by_year=shots_by_year)
 
 
-@mod.route('/detail/<int:shot_id>/', methods=['GET'])
+@mod.route('/<int:shot_id>/', methods=['GET'])
 def detail(shot_id):
     url = utils.get_url(path='shots/%s' % shot_id)
     shot = requests.get(url).json()
