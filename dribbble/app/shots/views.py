@@ -8,7 +8,8 @@ mod = Blueprint('shots', __name__, url_prefix='/shots')
 
 @mod.route('/list/', methods=['GET'])
 def list():
-    shots = utils.get_shots()
+    url = utils.get_url(path='shots')
+    shots = requests.get(url).json()
     return render_template('shots/list.html', shots=shots)
 
 
