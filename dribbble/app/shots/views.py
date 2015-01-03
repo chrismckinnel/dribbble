@@ -8,21 +8,8 @@ mod = Blueprint('shots', __name__, url_prefix='/shots')
 
 @mod.route('/list/', methods=['GET'])
 def list():
-    url = utils.get_url(path='shots')
-    shots = requests.get(url).json()
-    return render_template('shots/list.html', shots=shots)
-
-
-@mod.route('/years-ago/<int:number_of_years>/', methods=['GET'])
-def years_ago(number_of_years):
-    date = utils.years_ago(number_of_years)
-    params = [
-        'per_page=15',
-        'date=%s' % date.strftime('%Y-%m-%d')
-    ]
-    url = utils.get_url(path='shots', params=params)
-    shots = requests.get(url).json()
-    return render_template('shots/today.html', shots=shots)
+    shots_by_year = utils.get_shots_by_year()
+    return render_template('shots/list.html', shots_by_year=shots_by_year)
 
 
 @mod.route('/detail/<int:shot_id>/', methods=['GET'])

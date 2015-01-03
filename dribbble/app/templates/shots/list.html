@@ -2,8 +2,10 @@
     <body>
         <h1>Shots</h1>
         <ul>
-        {% for shot in shots %}
-            <li><a href="{{ url_for('shots.detail', shot_id=shot.id) }}">{{ shot.title }}<img src="{{ shot.images.normal }}" /></a></li>
+        {% for year in shots_by_year %}
+            {% for shot in year %}
+                <li><a href="{{ url_for('shots.detail', shot_id=shot.id) }}">{{ shot.title }}<img src="{{ shot.images.normal }}" /></a></li>
+            {% endfor %}
         {% endfor %}
         </ul>
     </body>

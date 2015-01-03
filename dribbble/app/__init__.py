@@ -26,5 +26,5 @@ def set_logger(app):
 
 
 def register_blueprints(app):
-    """Register the our other (non Flask-Restless) blueprints"""
+    """Register the our blueprints"""
     app.register_blueprint(shots_blueprint)
