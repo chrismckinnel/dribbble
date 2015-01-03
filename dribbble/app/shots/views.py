@@ -25,7 +25,7 @@ def years_ago(number_of_years):
     return render_template('shots/today.html', shots=shots)
 
 
-@mod.route('/detail/<int:shot_id>/', methods=['GET'])
+@mod.route('/<int:shot_id>/', methods=['GET'])
 def detail(shot_id):
     url = utils.get_url(path='shots/%s' % shot_id)
     shot = requests.get(url).json()
