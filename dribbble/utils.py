@@ -28,6 +28,6 @@ def get_shot_urls():
 
 
 def get_all_dates():
-    start_date = datetime.strptime('2009-07-29')
+    start_date = datetime.strptime('2009-07-29', '%Y-%m-%d')
     year = date.today().year
     return datetime.now() - relativedelta(years=number_of_years)
