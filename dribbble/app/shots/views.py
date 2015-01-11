@@ -16,4 +16,9 @@ def list():
 def detail(shot_id):
     url = utils.get_url(path='shots/%s' % shot_id)
     shot = requests.get(url).json()
-    return render_template('shots/detail.html', shot=shot)
+    colour_palette = utils.colour_palette(shot_id=shot_id)
+    context = {
+        'shot': shot,
+        'colour_palette': colour_palette
+    }
+    return render_template('shots/detail.html', **context)
